@@ -1,0 +1,191 @@
+/* =========================================
+   THEME: LEAGUE OF LEGENDS HEXTECH UI
+   ========================================= */
+:root {
+  --lol-dark-blue: #010a13;
+  --lol-medium-blue: #091428;
+  --lol-gold: #c8aa6e;
+  --lol-gold-hover: #f0e6d2;
+  --lol-cyan: #0ac8b9;
+  --lol-border: #463714;
+  --lol-text: #a09b8c;
+  --lol-text-highlight: #f0e6d2;
+}
+
+body {
+  margin: 0;
+  font-family: "Spiegel", "Segoe UI", sans-serif; /* Fontes estilo LoL */
+  background-color: var(--lol-dark-blue);
+  color: var(--lol-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  color: var(--lol-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+/* =========================================
+   COMPONENTES GERAIS (Botões e Cards)
+   ========================================= */
+button {
+  background-color: #1e2328;
+  color: var(--lol-gold);
+  border: 2px solid var(--lol-gold);
+  padding: 12px 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background-color: var(--lol-gold);
+  color: var(--lol-dark-blue);
+  box-shadow: 0 0 15px rgba(200, 170, 110, 0.5);
+}
+
+/* Card Padrão Hextech */
+.match-card, .factor-card, .login-container {
+  background-color: var(--lol-medium-blue);
+  border: 1px solid var(--lol-border);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Efeito de borda dourada no topo */
+.match-card::before, .factor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--lol-gold), transparent);
+}
+
+/* =========================================
+   TELAS ESPECÍFICAS
+   ========================================= */
+
+/* --- LOGIN --- */
+.login-container {
+  padding: 40px;
+  max-width: 400px;
+  margin: 100px auto;
+  text-align: center;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #010a13;
+  border: 1px solid var(--lol-border);
+  color: var(--lol-text-highlight);
+  font-size: 16px;
+}
+
+input:focus, select:focus {
+  border-color: var(--lol-cyan);
+  outline: none;
+  box-shadow: 0 0 8px rgba(10, 200, 185, 0.3);
+}
+
+/* --- DASHBOARD --- */
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.match-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* --- VOTING SESSION (SLIDERS) --- */
+.voting-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.factor-header {
+  border-bottom: 1px solid #333;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.stats-badge {
+  background: rgba(10, 200, 185, 0.1) !important;
+  color: var(--lol-cyan) !important;
+  border: 1px solid var(--lol-cyan);
+  font-size: 0.8em;
+}
+
+/* Sliders Customizados */
+.sliders-area {
+  display: flex;
+  gap: 30px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--lol-gold);
+  cursor: pointer;
+  margin-top: -8px;
+  box-shadow: 0 0 10px var(--lol-gold);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #333;
+}
+
+/* Cores específicas para Certeza (Mu) e Dúvida (Lambda) */
+.slider-mu::-webkit-slider-runnable-track { background: linear-gradient(90deg, #333, #0ac8b9); }
+.slider-lambda::-webkit-slider-runnable-track { background: linear-gradient(90deg, #333, #ff4e50); }
+
+/* --- RESULTADO --- */
+.result-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.main-score {
+  background: rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+}
+
+.logic-breakdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.logic-breakdown th {
+  text-align: left;
+  color: var(--lol-gold);
+  border-bottom: 1px solid var(--lol-border);
+  padding: 10px;
+}
+
+.logic-breakdown td {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+}
