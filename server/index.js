@@ -1,9 +1,9 @@
-// server/index.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./db'); 
-const bcrypt = require('bcryptjs'); // Biblioteca de criptografia
+const bcrypt = require('bcryptjs'); 
+const { analyzeMatchup } = require('./logic'); // Importa a nova lógica de Matchup
 
 const app = express();
 const PORT = 3001;
@@ -11,9 +11,14 @@ const PORT = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-console.log("Iniciando servidor...");
+console.log("------------------------------------------------");
+console.log("🚀 Iniciando Servidor LoL Strategy Analyzer...");
 
-// --- ROTA 1: REGISTRO DE USUÁRIO (Cria conta e encripta senha) ---
+// ==========================================
+// AUTENTICAÇÃO (LOGIN & REGISTRO)
+// ==========================================
+
+// Rota de Registro
 app.post('/auth/register', async (req, res) => {
     const { username, password, role, name } = req.body;
 
@@ -33,6 +38,7 @@ app.post('/auth/register', async (req, res) => {
             [username, hashedPassword, role, name]
         );
 
+        console.log(`Novo usuário registrado: ${username}`);
         res.json({ success: true, message: 'Usuário criado com sucesso!' });
     } catch (error) {
         console.error("Erro no registro:", error);
@@ -40,7 +46,7 @@ app.post('/auth/register', async (req, res) => {
     }
 });
 
-// --- ROTA 2: LOGIN (Verifica senha encriptada) ---
+// Rota de Login
 app.post('/auth/login', async (req, res) => {
     const { username, password, role } = req.body; 
 
@@ -54,28 +60,25 @@ app.post('/auth/login', async (req, res) => {
 
         const user = rows[0];
 
-        // Se a senha no banco for "123" (texto puro, usuários antigos), compara direto
-        // Se for um hash longo (novos usuários), usa o bcrypt
+        // Verificação de senha (suporta texto puro para legados e hash para novos)
         let passwordMatch = false;
-        
         if (user.password.length < 50) { 
-            // Fallback para senhas antigas de teste (texto puro)
-            passwordMatch = (password === user.password);
+            passwordMatch = (password === user.password); // Legado (123)
         } else {
-            // Comparação segura com Hash
-            passwordMatch = await bcrypt.compare(password, user.password);
+            passwordMatch = await bcrypt.compare(password, user.password); // Seguro (Hash)
         }
 
         if (!passwordMatch) {
             return res.status(401).json({ success: false, message: 'Senha incorreta.' });
         }
 
-        // Verifica cargo (Opcional, mas recomendado)
+        // Verifica cargo (Opcional)
         if (role && user.role !== role) {
              return res.status(401).json({ success: false, message: `Este usuário não é um ${role}` });
         }
 
-        delete user.password; // Não manda a senha de volta pro front
+        delete user.password; // Segurança: remove a senha do retorno
+        console.log(`Login efetuado: ${username} (${role})`);
         res.json({ success: true, user });
 
     } catch (error) {
@@ -84,7 +87,11 @@ app.post('/auth/login', async (req, res) => {
     }
 });
 
-// --- ROTA 3: LISTAR PARTIDAS (Dashboard) ---
+// ==========================================
+// GESTÃO DE PARTIDAS (DASHBOARD)
+// ==========================================
+
+// Listar Partidas
 app.get('/api/matches', async (req, res) => {
     try {
         const [rows] = await db.execute('SELECT * FROM matches ORDER BY created_at DESC');
@@ -95,7 +102,7 @@ app.get('/api/matches', async (req, res) => {
     }
 });
 
-// --- ROTA 4: CRIAR NOVA PARTIDA (Para o Coach) ---
+// Criar Nova Partida (Apenas Coach)
 app.post('/api/matches', async (req, res) => {
     const { title, description } = req.body;
     try {
@@ -103,6 +110,7 @@ app.post('/api/matches', async (req, res) => {
             'INSERT INTO matches (title, description, status) VALUES (?, ?, "VOTING")',
             [title, description]
         );
+        console.log(`Nova partida criada: ${title}`);
         res.json({ success: true });
     } catch (error) {
         console.error("Erro ao criar partida:", error);
@@ -110,6 +118,32 @@ app.post('/api/matches', async (req, res) => {
     }
 });
 
+// ==========================================
+// LÓGICA DE ANÁLISE (MATCHUP PONDERADO)
+// ==========================================
+
+app.post('/api/analyze', (req, res) => {
+    // Espera receber: { enemyType: "TANK", stats: { DPS: 8, BURST: 5... } }
+    const { enemyType, stats } = req.body;
+
+    if (!enemyType || !stats) {
+        return res.status(400).json({ error: "Dados incompletos (Falta Inimigo ou Stats)." });
+    }
+
+    console.log(`Processando análise contra arquétipo: ${enemyType}`);
+
+    // Chama a função da nova lógica (arquivo logic.js)
+    const result = analyzeMatchup(enemyType, stats);
+
+    console.log("Tier Calculado:", result.tier);
+    res.json(result);
+});
+
+// ==========================================
+// INICIALIZAÇÃO
+// ==========================================
+
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+    console.log(`✅ Servidor rodando na porta ${PORT}`);
+    console.log("------------------------------------------------");
 });
