@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../config';
 
 export default function Dashboard() {
   const [matches, setMatches] = useState([]); // Lista de partidas
@@ -23,7 +24,7 @@ export default function Dashboard() {
 
   const fetchMatches = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/matches');
+      const response = await fetch(`${API_URL}/api/matches`);
       const data = await response.json();
       setMatches(data);
     } catch (error) {
@@ -41,7 +42,7 @@ export default function Dashboard() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/matches', {
+      const response = await fetch(`${API_URL}/api/matches`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

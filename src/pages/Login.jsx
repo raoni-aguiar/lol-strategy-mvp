@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../index.css'; 
+import { API_URL } from '../config';
 
 export default function Login() {
   const [isRegistering, setIsRegistering] = useState(false); // Toggle entre Login/Registro
@@ -18,7 +19,7 @@ export default function Login() {
       : { username, password, role };
 
     try {
-      const response = await fetch(`http://localhost:3001${endpoint}`, {
+      const response = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

@@ -1,24 +1,16 @@
-# Logs
-logs
-*.log
+# Dependências (O GitHub não precisa disso, quem baixar instala com npm install)
+node_modules/
+/server/node_modules/
+
+# Variáveis de Ambiente e Segredos (NUNCA suba isso)
+.env
+/server/.env
+
+# Logs e arquivos de sistema
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# Build do React (Geralmente a gente não sobe a build, só o código fonte)
+dist/
+build/

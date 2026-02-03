@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 export default function VotingSession() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function VotingSession() {
 
   const submitAnalysis = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/analyze', {
+      const response = await fetch(`${API_URL}/api/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ enemyType, stats })

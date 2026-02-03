@@ -1,3 +1,8 @@
+/* RESET PADRÃO */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* =========================================
    THEME: LEAGUE OF LEGENDS HEXTECH UI
    ========================================= */
