@@ -6,6 +6,6 @@ export default defineConfig({
   preview: {
     allowedHosts: ['lol-strategy-mvp-production.up.railway.app'],
     host: true,
-    port: process.env.PORT || 4173,
+    port: parseInt(process.env.PORT) || 4173,
   }
 })
