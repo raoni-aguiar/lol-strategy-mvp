@@ -1,52 +1,43 @@
-# LoL Strategy Analyzer ⚔️
+# LoL Strategy Analyzer
 
-Ferramenta Full Stack para análise tática e tomada de decisão em partidas de League of Legends. O sistema permite que times (Coaches e Players) votem em estratégias e utiliza um algoritmo de análise de dados para calcular matchups favoráveis com base em estatísticas de dano e arquétipos de inimigos.
-
-![Status do Projeto](https://img.shields.io/badge/Status-Concluído-brightgreen)
-![Tech Stack](https://img.shields.io/badge/Stack-React_|_Node.js_|_MySQL-blue)
+![Status](https://img.shields.io/badge/Status-Concluído-brightgreen)
+![Stack](https://img.shields.io/badge/Stack-React_|_Node.js_|_MySQL-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+
+**[Demo ao vivo](https://lol-strategy-mvp-production.up.railway.app)**
+
+Ferramenta full stack para análise tática em partidas de League of Legends. Coaches criam salas de votação, players calibram os atributos do time via sliders, e o sistema calcula automaticamente a viabilidade da composição contra o arquétipo inimigo.
 
 ---
 
-## 📸 Galeria do Projeto
+## Galeria
 
-### 1. Login Hextech
-Autenticação segura com design temático imersivo.
-
+### Login
 ![Tela de Login](./screenshots/login.png)
 
-### 2. Dashboard de Estratégias
-Visão geral das partidas. O Coach acompanha quais votações estão abertas e os players acessam as salas.
+### Dashboard
+Visão geral das partidas abertas. O Coach acompanha as votações em andamento, players acessam as salas disponíveis.
 
 ![Dashboard Principal](./screenshots/dashboard2.png)
 
-### 3. Área do Coach (Criação)
-Interface exclusiva para Coaches definirem o título e a descrição tática da nova análise.
+### Criação de Estratégia
+Interface exclusiva para Coaches definirem título e descrição tática da análise.
 
 ![Nova Estratégia](./screenshots/new-strategy.png)
 
-### 4. Sala de Votação (Análise)
-O player define o arquétipo do inimigo (ex: Tank, Poke) e ajusta os sliders de atributos do time — DPS, Burst, Engage e Peel.
+### Sala de Votação
+O player define o arquétipo inimigo (Tank, Poke, Burst...) e ajusta os sliders de DPS, Burst, Engage e Peel do próprio time.
 
 ![Tela de Votação](./screenshots/voting.png)
 
-### 5. Resultado da Análise (Algoritmo)
-O backend processa os inputs contra uma matriz de pesos por arquétipo e retorna o Tier da composição com feedback visual instantâneo.
+### Resultado
+O backend processa os inputs contra uma matriz de pesos por arquétipo e retorna o Tier da composição (S, A, B...) com o breakdown detalhado do cálculo.
 
 ![Resultado Tier A](./screenshots/result.png)
 
 ---
 
-## 🎯 Funcionalidades
-
-- **Dashboard de Estratégia:** Visualização de partidas e status de votação em tempo real.
-- **Sistema de Votação:** Sessões interativas onde players calibram os atributos do time via sliders.
-- **Análise Algorítmica:** O backend processa os status contra arquétipos de inimigos e retorna a viabilidade da composição (Tier S, A, B...).
-- **Autenticação Segura:** Login e registro com hash de senhas (bcrypt) e controle de acesso por papel (Coach vs Player).
-
----
-
-## 🛠️ Tecnologias Utilizadas
+## Stack
 
 | Camada | Tecnologias |
 |--------|-------------|
@@ -57,30 +48,22 @@ O backend processa os inputs contra uma matriz de pesos por arquétipo e retorna
 
 ---
 
-## 🚀 Como Rodar Localmente
+## Rodando localmente
 
-### Pré-requisitos
-- Node.js instalado
-- MySQL rodando
+**Pré-requisitos:** Node.js e MySQL instalados.
 
-### Passo 1: Clonar o repositório
 ```bash
+# Clone o repositório
 git clone https://github.com/raoni-aguiar/lol-strategy-mvp.git
 cd lol-strategy-mvp
-```
 
-### Passo 2: Configurar o Backend
-```bash
+# Backend
 cd server
 npm install
-```
-Crie um arquivo `.env` baseado no `.env.example` com as credenciais do seu banco de dados e rode:
-```bash
+# Crie um .env baseado no .env.example com suas credenciais
 npm start
-```
 
-### Passo 3: Configurar o Frontend
-```bash
+# Frontend (em outro terminal)
 cd ..
 npm install
 npm run dev
@@ -88,9 +71,4 @@ npm run dev
 
 ---
 
-## 👤 Autor
-
-Desenvolvido por **Raoni Mendonça Aguiar Capodeferro**
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-raoni--aguiar-blue?logo=linkedin)](https://linkedin.com/in/raoni-aguiar)
-[![GitHub](https://img.shields.io/badge/GitHub-raoni--aguiar-black?logo=github)](https://github.com/raoni-aguiar)
+Desenvolvido por **Raoni Aguiar** — [LinkedIn](https://linkedin.com/in/raoni-aguiar) · [GitHub](https://github.com/raoni-aguiar)
